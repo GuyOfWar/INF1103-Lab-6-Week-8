@@ -6,8 +6,8 @@ class Inventory:
     def product_id_check(self, product_id):
         for product in self.__inventory_list:
             if product.product_id() == product_id: #check if id matches the id in inventory list
-                return(True)
-        return(False)
+                return(product)
+        return(None)
 
     def display_all(self): #option 1
         print("Current Inventory")

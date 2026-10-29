@@ -75,10 +75,11 @@ def update_stock(): #option 3
     print("\nUpdate Stock")
     while True: #check if product id is in inventory_list
         ProductID= input("Enter Product ID:").capitalize()
-        if ProductID in inventory_list: 
+        IDcheck= inventory.product_id_check(ProductID) #gets specific id from Inventory
+        if IDcheck is not None: 
             print("\nProduct Found:")
-            print(f"Name: {inventory_list[ProductID]['name']}")
-            print(f"Current Stock: {inventory_list[ProductID]['stock']}")
+            print(f"Name: {IDcheck.name()}")
+            print(f"Current Stock: {IDcheck.stock()}")
             break
         else:
             print("Product ID not found. Try again.")
@@ -91,7 +92,7 @@ def update_stock(): #option 3
                 break  # Exit loop if input is valid
             except ValueError: #when input is not numbers
                 print("Invalid input! Please enter a valid whole number.")    
-    inventory_list[ProductID]["stock"]= stock
+    IDcheck.update_stock(stock) #uses id from Inventory to update stock in Inventory
     print("\nStock updated successfully!")
 
 def search_product(): #option 4
