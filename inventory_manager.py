@@ -44,7 +44,7 @@ def add_product(): #option 2
     print("\nAdd New Product")
     while True: #check for duplicate product id when adding new product
         Pid= input("Product ID: ").capitalize()
-        if Pid in inventory_list:
+        if inventory.product_id_check(Pid): #check if id matches the id in inventory list
             print("Error. Product ID already exists! Choose a different Product ID.")
         else:
             break
