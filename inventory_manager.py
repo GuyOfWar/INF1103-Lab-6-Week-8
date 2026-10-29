@@ -95,22 +95,22 @@ def update_stock(): #option 3
     IDcheck.update_stock(stock) #uses id from Inventory to update stock in Inventory
     print("\nStock updated successfully!")
 
-def search_product(): #option 4
-    print("\nSearch Product")
-    while True: #check if product id is in inventory_list
-        ProductID= input("Enter Product ID:").capitalize()
-        if ProductID in inventory_list: 
-            print("\nProduct Found")
-            print("-------------------------------------")
-            print("ID:", ProductID)
-            print(f"Name: {inventory_list[ProductID]['name']}")
-            print(f"Price: ${inventory_list[ProductID]['price']:.2f}")
-            print(f"Stock: {inventory_list[ProductID]['stock']}")
-            print("-------------------------------------")
-            break
-        else:
-            print("\nProduct not found.")
-            break
+# def search_product(): #option 4
+#     print("\nSearch Product")
+#     while True: #check if product id is in inventory_list
+#         ProductID= input("Enter Product ID:").capitalize()
+#         if ProductID in inventory_list: 
+#             print("\nProduct Found")
+#             print("-------------------------------------")
+#             print("ID:", ProductID)
+#             print(f"Name: {inventory_list[ProductID]['name']}")
+#             print(f"Price: ${inventory_list[ProductID]['price']:.2f}")
+#             print(f"Stock: {inventory_list[ProductID]['stock']}")
+#             print("-------------------------------------")
+#             break
+#         else:
+#             print("\nProduct not found.")
+#             break
 
 def save_inventory(): #option 5 & 6, save to json and dump the dictionary into it
     with open('inventory.json', 'w') as file:
@@ -126,9 +126,9 @@ while True:
     elif prompt== "2":
         add_product() #now uses Product & Inventory class inside the function
     elif prompt== "3":
-        update_stock()
+        update_stock() #now uses Product & Inventory class inside the function
     elif prompt== "4":
-        search_product()
+        inventory.search_product()
     elif prompt== "5":
         print("\nSaving inventory...")
         save_inventory()

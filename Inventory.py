@@ -19,10 +19,11 @@ class Inventory:
     def add_product(self, product): #option 2
         self.__inventory_list.append(product)
 
-    def search_product(self, product_id): #option 4
+    def search_product(self): #option 4
         print("\nSearch Product")
+        ProductID= input("Enter Product ID:").capitalize()
         for product in self.__inventory_list:
-            if product.product_id == product_id: #check if id matches the id in inventory list
+            if product.product_id() == ProductID: #check if id matches the id in inventory list
                 print("\nProduct Found")
                 print("-------------------------------------")
                 print(f"ID:  {product.product_id()}")
@@ -30,5 +31,6 @@ class Inventory:
                 print(f"Price: ${product.price():.2f}")
                 print(f"Stock: {product.stock()}")
                 print("-------------------------------------")
-            else:
-                print("\nProduct not found.")
+                return(product) #stops entire function, using break will only exit the if loop
+        print("\nProduct not found.")
+        return(None) #stops entire function and indicates no results
