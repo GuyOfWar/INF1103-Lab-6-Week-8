@@ -34,3 +34,6 @@ class Inventory:
                 return(product) #stops entire function, using break will only exit the if loop
         print("\nProduct not found.")
         return(None) #stops entire function and indicates no results
+
+    def to_list(self): #converts all Product dictionaries to list of dictionaries for json
+        return [product.to_dict() for product in self.__inventory_list]

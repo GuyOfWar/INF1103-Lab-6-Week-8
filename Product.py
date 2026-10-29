@@ -24,4 +24,12 @@ class Product:
     def display_information(self): #option 1
         print(f"ID: {self.__product_id} | Name: {self.__name} | Price: ${self.__price:.2f} | Stock: {self.__stock}")
 
+    def to_dict(self): #convert Product to dictionary for json
+        return {
+            "product_id": self.__product_id,
+            "name": self.__name,
+            "price": self.__price,
+            "stock": self.__stock
+        }
+
     

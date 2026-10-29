@@ -3,7 +3,6 @@ import os
 from Product import Product
 from Inventory import Inventory
 prompt = int(0)
-inventory_list={}
 inventory = Inventory() #creating inventory object from Inventory class
 product1 = Product("P001", "Laptop", 1200.00, 15) #creating product from Product class via init
 product2 = Product("P002", "Mouse", 25.50, 40)
@@ -27,16 +26,16 @@ def menu_display(): #print out menu
     print("5. Save Inventory")
     print("6. Exit")
 def load_inventory(): #load json
-    global inventory_list
+    global inventory
     # If file doesn't exist or is empty, create it with an empty dictionary {}
     if not os.path.exists("inventory.json") or os.path.getsize("inventory.json") == 0:
         with open("inventory.json", "w") as file:
             json.dump({}, file)
     with open("inventory.json", "r") as file: #open and load json
             try:
-                inventory_list = json.load(file) #load json file into inventory_list as dictionary
+                inventory = json.load(file) #load json file into inventory_list as dictionary
             except json.JSONDecodeError:
-                inventory_list = {}  # Fallback if the file is corrupted
+                inventory = Inventory()  # Fallback if the file is corrupted
     print("\ninventory.json found.")
     print("Inventory loaded successfully.")
 
@@ -75,7 +74,7 @@ def update_stock(): #option 3
     print("\nUpdate Stock")
     while True: #check if product id is in inventory_list
         ProductID= input("Enter Product ID:").capitalize()
-        IDcheck= inventory.product_id_check(ProductID) #gets specific id from Inventory
+        IDcheck= inventory.product_id_check(ProductID) #gets specific id from Inventory to use
         if IDcheck is not None: 
             print("\nProduct Found:")
             print(f"Name: {IDcheck.name()}")
@@ -95,26 +94,9 @@ def update_stock(): #option 3
     IDcheck.update_stock(stock) #uses id from Inventory to update stock in Inventory
     print("\nStock updated successfully!")
 
-# def search_product(): #option 4
-#     print("\nSearch Product")
-#     while True: #check if product id is in inventory_list
-#         ProductID= input("Enter Product ID:").capitalize()
-#         if ProductID in inventory_list: 
-#             print("\nProduct Found")
-#             print("-------------------------------------")
-#             print("ID:", ProductID)
-#             print(f"Name: {inventory_list[ProductID]['name']}")
-#             print(f"Price: ${inventory_list[ProductID]['price']:.2f}")
-#             print(f"Stock: {inventory_list[ProductID]['stock']}")
-#             print("-------------------------------------")
-#             break
-#         else:
-#             print("\nProduct not found.")
-#             break
-
 def save_inventory(): #option 5 & 6, save to json and dump the dictionary into it
     with open('inventory.json', 'w') as file:
-        json.dump(inventory_list, file, indent=4)
+        json.dump(inventory, file, indent=4)
 #main
 title_display()
 load_inventory()
