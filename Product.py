@@ -21,7 +21,7 @@ class Product:
         self.__stock = int(stock)
         return(self.__stock)
     
-    def display_information(self):
+    def display_information(self): #option 1
         print(f"ID: {self.__product_id} | Name: {self.__name} | Price: ${self.__price:.2f} | Stock: {self.__stock}")
 
     
