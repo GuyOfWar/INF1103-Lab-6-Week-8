@@ -9,10 +9,6 @@ product2 = Product("P002", "Mouse", 25.50, 40)
 product3 = Product("P003", "Keyboard", 45.00, 40)
 product4 = Product("P004", "Monitor", 299.99, 10)
 newproduct = ()
-inventory.add_product(product1)
-inventory.add_product(product2)
-inventory.add_product(product3)
-inventory.add_product(product4)
 def title_display(): #print out title
     print("========================================")
     print("INVENTORY MANAGEMENT SYSTEM")
@@ -27,15 +23,28 @@ def menu_display(): #print out menu
     print("6. Exit")
 def load_inventory(): #load json
     global inventory
-    # If file doesn't exist or is empty, create it with an empty dictionary {}
-    if not os.path.exists("inventory.json") or os.path.getsize("inventory.json") == 0:
-        with open("inventory.json", "w") as file:
-            json.dump({}, file)
-    with open("inventory.json", "r") as file: #open and load json
-            try:
-                inventory = json.load(file) #load json file into inventory_list as dictionary
-            except json.JSONDecodeError:
-                inventory = Inventory()  # Fallback if the file is corrupted
+    if not os.path.exists("inventory.json") or os.path.getsize("inventory.json") == 0: #If file doesn't exist or is empty
+        with open("inventory.json", "w") as file: #create empty file and activate Inventory to read from
+            json.dump([], file)
+        inventory = Inventory()
+        inventory.add_product(product1)
+        inventory.add_product(product2)
+        inventory.add_product(product3)
+        inventory.add_product(product4)
+        save_inventory()
+    else:    
+        with open("inventory.json", "r") as file: #open and load json
+                try:
+                    data = json.load(file) #load json file into data variable as dictionary
+                    inventory = Inventory() #activate Inventory
+                    inventory.load_list(data) #put data from json into Inventory
+                except json.JSONDecodeError:
+                    inventory = Inventory()  # Fallback if the file is corrupted & activate Inventory to read from
+                    inventory.add_product(product1)
+                    inventory.add_product(product2)
+                    inventory.add_product(product3)
+                    inventory.add_product(product4)
+                    save_inventory()
     print("\ninventory.json found.")
     print("Inventory loaded successfully.")
 
@@ -96,7 +105,7 @@ def update_stock(): #option 3
 
 def save_inventory(): #option 5 & 6, save to json and dump the dictionary into it
     with open('inventory.json', 'w') as file:
-        json.dump(inventory, file, indent=4)
+        json.dump(inventory.to_list(), file, indent=4)
 #main
 title_display()
 load_inventory()

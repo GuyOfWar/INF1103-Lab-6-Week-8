@@ -2,6 +2,17 @@ from Product import Product
 class Inventory:
     def __init__(self):
          self.__inventory_list = []
+
+    def load_list(self, data): #converts data from json into Product in Inventory
+        self.__inventory_list = []
+        for product_data in data:
+            product = Product(
+                product_data["product_id"],
+                product_data["name"],
+                product_data["price"],
+                product_data["stock"]
+            )
+            self.__inventory_list.append(product)
     
     def product_id_check(self, product_id):
         for product in self.__inventory_list:
